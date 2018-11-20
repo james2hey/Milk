@@ -1,4 +1,5 @@
 import discord
+from config import Config
 from cup import FreezeMilk
 
 
@@ -46,4 +47,4 @@ async def process_message(message, freeze_milk):
             await client.send_message(message.channel, freeze_milk.stats[message.author].draw())
 
 
-client.run("NTE0MjYwMzEzMDU5NjIyOTE3.DtT-dw.3McwIX5CvtFYBumxuQuPHTgPkr4")
+client.run(Config().token)
