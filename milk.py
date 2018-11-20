@@ -1,13 +1,14 @@
 import discord
-from cup import Cup
+from cup import FreezeMilk
+
 
 client = discord.Client()
-milk_stats = dict()
+
 
 @client.event
 async def on_ready():
     print("Milk is flowing")
-    await client.change_presence(game=discord.Game(name="Mint"))
+    await client.change_presence(game=discord.Game(name="Butt Cracker"))
 
 
 @client.event
@@ -15,14 +16,19 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content:
-        get_milk_stats(message)
-        await process_message(message)
+        freeze_milk = FreezeMilk(message.server)
+        freeze_milk.get_milk_stats()
+
+        await process_message(message, freeze_milk)
+
+        freeze_milk.save_milk_stats()
 
 
-async def process_message(message):
+async def process_message(message, freeze_milk):
     args = message.content.split(" ")
-    print(args)
     if args[0] == "milk":
+        if len(args) < 2:
+            await client.send_message(message.channel, "milk what?")
         if args[1] == "trent":
             await client.send_message(message.channel, ":boom: KABOOM!")
 
@@ -33,19 +39,11 @@ async def process_message(message):
             await client.send_message(message.channel, "2hey")
 
         if args[1] == "upgrade":
-            milk_stats[message.author].upgrade_cup()
-            await client.send_message(message.channel, "You been upgraded to size " + str(milk_stats[message.author].size))
+            freeze_milk.stats[message.author].upgrade_cup()
+            await client.send_message(message.channel, "You been upgraded to size " + str(freeze_milk.stats[message.author].size))
 
         if args[1] == "cup":
-            await client.send_message(message.channel, milk_stats[message.author].draw())
-
-
-def get_milk_stats(message):
-    print(len(milk_stats))
-    if len(milk_stats) == 0:
-        for member in message.server.members:
-            milk_stats[member] = Cup()
-    pass
+            await client.send_message(message.channel, freeze_milk.stats[message.author].draw())
 
 
 client.run("NTE0MjYwMzEzMDU5NjIyOTE3.DtT-dw.3McwIX5CvtFYBumxuQuPHTgPkr4")

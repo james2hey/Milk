@@ -122,3 +122,5 @@ dmypy.json
 *.launch
 .settings/
 *.sublime-workspace
+
+stats/
