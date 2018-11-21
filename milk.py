@@ -2,7 +2,6 @@ import discord
 from config import Config
 from cup import FreezeMilk
 
-
 client = discord.Client()
 
 
@@ -27,24 +26,40 @@ async def on_message(message):
 
 async def process_message(message, freeze_milk):
     args = message.content.split(" ")
-    if args[0] == "milk":
-        if len(args) < 2:
-            await client.send_message(message.channel, "milk what?")
+    if args[0] == "milk" and len(args) > 1:
+        current_cup = freeze_milk.stats[message.author]
+
         if args[1] == "trent":
             await client.send_message(message.channel, ":boom: KABOOM!")
 
-        if args[1] == "sconz":
+        elif args[1] == "sconz":
             await client.send_message(message.channel, "Laters to your money")
 
-        if args[1] == "james":
+        elif args[1] == "james":
             await client.send_message(message.channel, "2hey")
 
-        if args[1] == "upgrade":
-            freeze_milk.stats[message.author].upgrade_cup()
-            await client.send_message(message.channel, "You been upgraded to size " + str(freeze_milk.stats[message.author].size))
+        elif args[1] == "cup":
+            await client.send_message(message.channel, current_cup.draw())
 
-        if args[1] == "cup":
-            await client.send_message(message.channel, freeze_milk.stats[message.author].draw())
+        elif args[1] == "pour":
+            filled_level = current_cup.pour()
+            if filled_level == 2:
+                pre_text = "Wtf dude you spilt your milk? You're getting a downgrade lol"
+            else:
+                pre_text = str(message.author) + "'s milk level: " + str(filled_level) + " "
+
+            await client.send_message(message.channel, pre_text + current_cup.draw())
+
+        elif args[1] == "drink":
+            full_cup = current_cup.drink()
+            pre_text = ""
+            if full_cup:
+                pre_text = "You drunk a full glass of milk. Upgrade time! "
+
+            await client.send_message(message.channel, pre_text + current_cup.draw())
+
+        else:
+            await client.send_message(message.channel, ":milk: Unrecognised command :milk:")
 
 
 client.run(Config().token)

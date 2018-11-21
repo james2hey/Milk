@@ -1,18 +1,22 @@
 import pickle
 
+MIN = 2
+
 
 class Cup:
     def __init__(self):
-        self.filled_level = 0
+        self.filled_level = MIN
         self.size = 4
 
     def pour(self):
         self.filled_level += 1
         if self.filled_level > self.size:
             self.spill()
+        return self.filled_level
 
     def spill(self):
-        self.filled_level = 0
+        self.filled_level = MIN
+        self.downgrade_cup()
 
     def upgrade_cup(self):
         self.size += 1
@@ -20,13 +24,26 @@ class Cup:
     def downgrade_cup(self):
         self.size -= 1
 
+    def drink(self):
+        if self.filled_level == self.size:
+            self.size += 1
+            self.filled_level = MIN
+            return True
+        else:
+            self.filled_level = MIN
+            return False
+
     def draw(self):
         i = self.size
-        string = "```"
+        string = "```\n"
+        # string += ""
         while i > 1:
-            string += (self.size - i) * " " + "\\" + (2 * i) * " " + "/\n"
+            string += (self.size - i) * " " + "\\"
+            string += (2 * i) * "_" if i == self.filled_level or i == 2 else (2 * i) * " "
+            string += "/\n"
+
             i -= 1
-        string += (self.size - i) * " " + (2 * (i+1)) * "-" + "```"
+        string += "```"
         return string
 
 
