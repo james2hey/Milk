@@ -43,7 +43,7 @@ async def process_message(message, freeze_milk):
 
         elif args[1] == "pour":
             filled_level = current_cup.pour()
-            if filled_level == 2:
+            if not filled_level:
                 pre_text = "Wtf dude you spilt your milk? You're getting a downgrade lol"
             else:
                 pre_text = str(message.author) + "'s milk level: " + str(filled_level) + " "
