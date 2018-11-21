@@ -19,10 +19,12 @@ class Cup:
         self.downgrade_cup()
 
     def upgrade_cup(self):
-        self.size += 1
+        if self.size < 8:
+            self.size += 1
 
     def downgrade_cup(self):
-        self.size -= 1
+        if self.size > 1:
+            self.size -= 1
 
     def drink(self):
         if self.filled_level == self.size:
