@@ -34,7 +34,6 @@ class Cup:
             return False
 
     def draw(self):
-        print("filled level = " + str(self.filled_level) + ", size = " + str(self.size))
         string = "```\n"
         i = 3 * self.size
         string += i * "_" + "\n" if self.filled_level == self.size else "\n"
@@ -48,7 +47,6 @@ class Cup:
                 string += i * "_" + "/\n"
             else:
                 string += i * " " + "/\n"
-
             indent += 1
             i -= 2
 
