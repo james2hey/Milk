@@ -80,10 +80,13 @@ async def process_message(message, freeze_milk):
             await client.send_message(message.channel, person)
 
         elif args[1] == "one" and args[2] == "step":
-            await client.send_message(message.channel, "One Step Aheeeaadd")
-            voice = await client.join_voice_channel(message.author.voice_channel)
-            player = voice.create_ffmpeg_player('resources/sounds/OneStepAhead.mp3')
-            player.start()
+            # await client.send_message(message.channel, "One Step Aheeeaadd")
+            if message.author.voice_channel:
+                voice = await client.join_voice_channel(message.author.voice_channel)
+                player = voice.create_ffmpeg_player('resources/sounds/OneStepAhead.mp3')
+                player.start()
+            else:
+                await  client.send_message(message.channel, "You need to join a voice channel first")
 
         else:
             await client.send_message(message.channel, ":milk: Unrecognised command :milk:")
