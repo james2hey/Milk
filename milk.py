@@ -4,6 +4,14 @@ from cup import FreezeMilk
 
 client = discord.Client()
 
+if not discord.opus.is_loaded():
+    # the 'opus' library here is opus.dll on windows
+    # or libopus.so on linux in the current directory
+    # you should replace this with the location the
+    # opus library is located in and with the proper filename.
+    # note that on windows this DLL is automatically provided for you
+    discord.opus.load_opus('opus')
+
 
 @client.event
 async def on_ready():
@@ -57,6 +65,12 @@ async def process_message(message, freeze_milk):
                 pre_text = "You drunk a full glass of milk. Upgrade time! "
 
             await client.send_message(message.channel, pre_text + current_cup.draw())
+
+        elif args[1] == "one" and args[2] == "step":
+            await client.send_message(message.channel, "One Step Aheeeaadd")
+            voice = await client.join_voice_channel(message.author.voice_channel)
+            player = voice.create_ffmpeg_player('resources/sounds/OneStepAhead.mp3')
+            player.start()
 
         else:
             await client.send_message(message.channel, ":milk: Unrecognised command :milk:")
