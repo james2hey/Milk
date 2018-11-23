@@ -1,6 +1,7 @@
 import discord
 from config import Config
 from cup import FreezeMilk
+from random import randint
 
 client = discord.Client()
 
@@ -39,7 +40,7 @@ async def process_message(message, freeze_milk):
 
         if args[1] == "help":
             await client.send_message(message.channel, "```"
-                                                       "Your daily intake of calcium"
+                                                       "Your daily intake of calcium\n"
                                                        "cup - show your cups current state\n"
                                                        "pour - pour a level of milk in your cup\n"
                                                        "drink - drink that milky goodness\n"
@@ -66,12 +67,25 @@ async def process_message(message, freeze_milk):
             await client.send_message(message.channel, pre_text + current_cup.draw())
 
         elif args[1] == "drink":
+            chance = randint(0, 100)
+
             if len(args) > 2 and message.mentions:
-                current_cup = freeze_milk.stats[message.mentions[0]]
-            full_cup = current_cup.drink()
-            pre_text = ""
-            if full_cup:
-                pre_text = "You drunk a full glass of milk. Upgrade time! "
+                if chance < 2:
+                    current_cup.spill()
+                    pre_text = "God damn, you knocked your glass off the table. Downgrade for you"
+                else:
+                    current_cup = freeze_milk.stats[message.mentions[0]]
+
+            if chance < 2:
+                current_cup.spill()
+                pre_text = "God damn, you knocked your glass off the table. Downgrade for you"
+            else:
+                full_cup = current_cup.drink()
+                pre_text = ""
+                if full_cup:
+                    pre_text = "You drunk a full glass of milk. Upgrade time! "
+                else:
+                    pre_text = "Aww jeez, your cup wasn't full. No upgrade for you"
 
             await client.send_message(message.channel, pre_text + current_cup.draw())
 
