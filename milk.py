@@ -2,6 +2,8 @@ import discord
 from config import Config
 from cup import FreezeMilk
 from random import randint
+from milkman import create_milkman
+from mintai import get_mintai
 
 client = discord.Client()
 
@@ -38,15 +40,22 @@ async def process_message(message, freeze_milk):
     if args[0] == "milk" and len(args) > 1:
         current_cup = freeze_milk.stats[message.author]
         if args[1] == "help":
-            await client.send_message(message.channel, "```"
-                                                       "Your daily intake of calcium\n"
-                                                       "cup - show your cups current state\n"
-                                                       "pour - pour a level of milk in your cup\n"
-                                                       "drink - drink that milky goodness\n"
-                                                       "```")
+            embed = discord.Embed(title="Milk Help", description="Your daily intake of calcium", color=0x111)
+            embed.add_field(name="Drinks", value="cup - show your cups current state\n"
+                                                 "pour - pour a level of milk in your cup\n"
+                                                 "drink - drink that milky goodness\n", inline=False)
+            embed.add_field(name="Voice Chat", value="one step - \n"
+                                                     "cow - moo\n", inline=False)
+            embed.add_field(name="Images", value="udder - where does milk come from?\n", inline=False)
+            embed.add_field(name="Misc", value="trent - lactose intolerance + milk = \n", inline=False)
+            await client.send_message(message.channel, embed=embed)
 
         elif args[1] == "trent":
+            await client.add_reaction(message, "\U0001F602")
             await client.send_message(message.channel, ":boom: KABOOM!")
+
+        elif args[1] == "udder":
+            await client.send_file(message.channel, "resources/img/udder.jpg")
 
         elif args[1] == "cup":
             if len(args) > 2 and message.mentions:
@@ -88,10 +97,6 @@ async def process_message(message, freeze_milk):
 
             await client.send_message(message.channel, pre_text + current_cup.draw())
 
-        elif args[1] == "test":
-            person = message.mentions[0].name
-            await client.send_message(message.channel, person)
-
         elif args[1] == "one" and args[2] == "step":
             # await client.send_message(message.channel, "One Step Aheeeaadd")
             if message.author.voice_channel:
@@ -115,8 +120,24 @@ async def process_message(message, freeze_milk):
                 player.start()
 
             else:
-                await  client.send_message(message.channel, "You need to join a voice channel first")
+                await client.send_message(message.channel, "You need to join a voice channel first")
 
+        elif args[1] == "test":
+            # create_milkman(message.author.avatar_url)
+            # await client.send_message(message.channel, message.author.avatar_url)
+            await client.send_file(message.channel, create_milkman(message.author.avatar_url))
+
+        elif args[1] == "mint":
+            post = get_mintai()
+            embed = discord.Embed(title=post.title, color=0x111, url=post.url, )
+
+            # embed.set_image(post.url)
+            embed.add_field(name=post.permalink, value=post.url)
+
+            await client.send_message(message.channel, embed=embed)
+
+        elif args[1] == "james":
+            await client.send_message(message.channel, "2HEY")
         elif args[1] == 'leave':
             if client.voice_client_in(message.author.server):
                 voice = client.voice_client_in(message.author.server)
