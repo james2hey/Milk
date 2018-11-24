@@ -19,7 +19,7 @@ if not discord.opus.is_loaded():
 @client.event
 async def on_ready():
     print("Milk is flowing")
-    await client.change_presence(game=discord.Game(name="milk help"))
+    await client.change_presence(game=discord.Game(name="milk help (on scones' pc)"))
 
 
 @client.event
@@ -53,6 +53,14 @@ async def process_message(message, freeze_milk):
         elif args[1] == "trent":
             await client.add_reaction(message, "\U0001F602")
             await client.send_message(message.channel, ":boom: KABOOM!")
+            if message.author.voice_channel:
+                if not client.voice_client_in(message.author.server):
+                    voice = await client.join_voice_channel(message.author.voice_channel)
+                else:
+                    voice = client.voice_client_in(message.author.server)
+                fart = randint(1, 7)
+                player = voice.create_ffmpeg_player('resources/sounds/farts/fart' + str(fart) + '.mp3')
+                player.start()
 
         elif args[1] == "udder":
             await client.send_file(message.channel, "resources/img/udder.jpg")
@@ -142,6 +150,11 @@ async def process_message(message, freeze_milk):
             if client.voice_client_in(message.author.server):
                 voice = client.voice_client_in(message.author.server)
                 await voice.disconnect()
+            return
+
+        elif args[1] == 'die':
+            await client.send_message(message.channel, "Why you do dis??")
+            await client.logout()
 
         else:
             await client.send_message(message.channel, ":milk: Unrecognised command :milk:")
