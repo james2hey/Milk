@@ -37,7 +37,6 @@ async def process_message(message, freeze_milk):
     args = message.content.split(" ")
     if args[0] == "milk" and len(args) > 1:
         current_cup = freeze_milk.stats[message.author]
-
         if args[1] == "help":
             await client.send_message(message.channel, "```"
                                                        "Your daily intake of calcium\n"
@@ -118,6 +117,10 @@ async def process_message(message, freeze_milk):
             else:
                 await  client.send_message(message.channel, "You need to join a voice channel first")
 
+        elif args[1] == 'leave':
+            if client.voice_client_in(message.author.server):
+                voice = client.voice_client_in(message.author.server)
+                await voice.disconnect()
 
         else:
             await client.send_message(message.channel, ":milk: Unrecognised command :milk:")
