@@ -12,6 +12,7 @@ class Test:
                       brief='Probably does something broken',
                       pass_context=True)
     async def test(self, context):
+        # await self.bot.send_message(context.message.channel, "Testing reload")
         await self.bot.send_file(context.message.channel, create_milkman(context.message.author.avatar_url))
 
     @commands.command(name='leave',
@@ -39,6 +40,31 @@ class Test:
         print(all_args)
         if all_args:
             await self.bot.send_message(context.message.channel, all_args)
+
+    @commands.command(name='unload', hidden=True, pass_context=True)
+    async def cog_unload(self, context, *, cog: str):
+        """Command which Unloads a Module.
+        Remember to use dot path. e.g: cogs.owner"""
+
+        try:
+            self.bot.unload_extension(cog)
+        except Exception as e:
+            await self.bot.send_message(context.message.channel, f'**`ERROR:`** {type(e).__name__} - {e}')
+        else:
+            await self.bot.send_message(context.message.channel, '**`SUCCESS`**')
+
+    @commands.command(name='reload', hidden=True, pass_context=True)
+    async def cog_reload(self, context, *, cog: str):
+        """Command which Reloads a Module.
+        Remember to use dot path. e.g: cogs.owner"""
+
+        try:
+            self.bot.unload_extension(cog)
+            self.bot.load_extension(cog)
+        except Exception as e:
+            await self.bot.send_message(context.message.channel, f'**`ERROR:`** {type(e).__name__} - {e}')
+        else:
+            await self.bot.send_message(context.message.channel, '**`SUCCESS`**')
 
 
 
