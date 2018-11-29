@@ -8,8 +8,6 @@ def create_milkman(avatar_url):
     top = Image.open(BytesIO(requests.get(avatar_url, stream=True).content)).convert('RGBA')
     bottom.paste(top, (170, 50), top)
 
-    b = BytesIO()
-    bottom.save(b, format='bmp')
-    b.seek(0)
-    return 'resources/img/milkman.bmp'
+    bottom.convert('RGB').save('temp/milkman.jpg')
+    return 'temp/milkman.jpg'
 
