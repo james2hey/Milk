@@ -1,5 +1,7 @@
 from discord.ext import commands
 from random import randint
+
+import milkman
 from cup import FreezeMilk
 
 
@@ -43,6 +45,8 @@ class Drinks:
         filled_level = current_cup.pour()
         if not filled_level:
             pre_text = "Wtf dude you spilt the milk? You're getting a downgrade lol"
+            await self.bot.send_file(context.message.channel,
+                                     milkman.create_spillman(context.message.author.avatar_url))
         else:
             pre_text = "milk level: " + str(filled_level) + " "
 
