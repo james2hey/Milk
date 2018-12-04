@@ -125,3 +125,4 @@ dmypy.json
 
 stats/
 config.py
+temp/

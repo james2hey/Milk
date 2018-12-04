@@ -45,8 +45,9 @@ class Drinks:
         filled_level = current_cup.pour()
         if not filled_level:
             pre_text = "Wtf dude you spilt the milk? You're getting a downgrade lol"
+            ava_url = context.message.mentions[0].avatar_url if mention else context.message.author.avatar_url
             await self.bot.send_file(context.message.channel,
-                                     milkman.create_spillman(context.message.author.avatar_url))
+                                     milkman.create_spillman(ava_url))
         else:
             pre_text = "milk level: " + str(filled_level) + " "
 

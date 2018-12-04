@@ -13,5 +13,8 @@ class Images:
         await self.bot.send_file(context.message.channel, "resources/img/udder.jpg")
 
 
+async def send_image(self, context, resource):
+        await self.bot.send_file(context.message.channel, resource)
+
 def setup(bot):
     bot.add_cog(Images(bot))
