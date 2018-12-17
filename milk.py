@@ -13,7 +13,8 @@ initial_extensions = ['cogs.voice',
                       'cogs.misc',
                       'cogs.drinks',
                       'cogs.images',
-                      'cogs.test']
+                      'cogs.test',
+                      'cogs.redditor']
 
 bot = commands.Bot(command_prefix=BOT_PREFIX, description='Milk is flowing')
 
@@ -31,7 +32,7 @@ if __name__ == '__main__':
 async def on_ready():
     print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
 
-    await bot.change_presence(game=discord.Game(name="milk help (on scones' pc)"))
+    await bot.change_presence(game=discord.Game(name="milk help " + Config().running_on))
     print('Milk is flowing')
 
 

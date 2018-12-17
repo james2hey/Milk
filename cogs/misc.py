@@ -2,8 +2,6 @@ from discord import Embed
 from discord.ext import commands
 from random import randint
 
-from mintai import get_mintai
-
 
 class Misc:
     def __init__(self, bot):
@@ -24,19 +22,6 @@ class Misc:
             fart = randint(1, 7)
             player = voice.create_ffmpeg_player('resources/sounds/farts/fart' + str(fart) + '.mp3')
             player.start()
-
-    @commands.command(name='mint',
-                      description="idk",
-                      brief="idk",
-                      pass_context=True)
-    async def mint(self, context):
-            post = get_mintai()
-            embed = Embed(title=post.title, color=0x111, url=post.url, )
-
-            # embed.set_image(post.url)
-            embed.add_field(name=post.permalink, value=post.url)
-
-            await self.bot.send_message(context.message.channel, embed=embed)
 
     @commands.command(name='james',
                       description="my👏creator👏is👏the👏best😘🤗👏",
