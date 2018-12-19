@@ -44,6 +44,44 @@ class Voice:
         else:
             await self.bot.send_message(context.message.channel, "You need to join a voice channel first")
 
+    @commands.command(name='loss',
+                      description="Steppin' on the beach do do do DOOO",
+                      brief="Got a dub did ya?",
+                      pass_context=True)
+    async def loss(self, context):
+        if context.message.author.voice_channel:
+            await self.bot.send_message(context.message.channel, "R.I.P. bois!")
+            player = await self.get_player(context, 'resources/sounds/SadLoss.m4a')
+            player.start()
+
+        else:
+            await self.bot.send_message(context.message.channel, "You need to join a voice channel first")
+
+    @commands.command(name='hoopla',
+                      description="Steppin' on the beach do do do DOOO",
+                      brief="Got a dub did ya?",
+                      pass_context=True)
+    async def hoopla(self, context):
+        if context.message.author.voice_channel:
+            player = await self.get_player(context, 'resources/sounds/Hoopla.opus')
+            await send_image(self, context, 'resources/img/hoopla.' + ('jpg' if randint(0, 1) == 1 else 'gif'))
+            player.start()
+
+        else:
+            await self.bot.send_message(context.message.channel, "You need to join a voice channel first")
+
+    @commands.command(name='killin',
+                      description="Oh Boy",
+                      brief="Thought I wouldn't notice huh Morty?",
+                      pass_context=True)
+    async def killin_again(self, context):
+        if context.message.author.voice_channel:
+            player = await self.get_player(context, 'resources/sounds/OhBoy.opus')
+            player.start()
+
+        else:
+            await self.bot.send_message(context.message.channel, "You need to join a voice channel first")
+
     async def get_player(self, context, resource):
         if not self.bot.voice_client_in(context.message.author.server):
             voice = await self.bot.join_voice_channel(context.message.author.voice_channel)

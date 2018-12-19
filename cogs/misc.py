@@ -37,6 +37,8 @@ class Misc:
             embed.add_field(name=post.permalink, value=post.url)
 
             await self.bot.send_message(context.message.channel, embed=embed)
+            await self.bot.send_message(context.message.channel, "Mint senpai is very far away and addicted to destiny"
+                                                                 " at this time, please try again later")
 
     @commands.command(name='james',
                       description="my👏creator👏is👏the👏best😘🤗👏",
