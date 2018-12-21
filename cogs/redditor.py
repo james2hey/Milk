@@ -38,6 +38,14 @@ class Redditor:
         embed = self.embed_post(post)
         await self.bot.send_message(context.message.channel, embed=embed)
 
+    @commands.command(name='fortnite',
+                      description="FortNiteBR",
+                      brief="Ah ye",
+                      pass_context=True)
+    async def get_fortnite(self, context):
+        post = self.get_hot_post("FortNiteBR")
+        await self.bot.send_message(context.message.channel, post.url)
+
     def get_hot_post(self, topic):
         """Returns a random hot post from a given subreddit topic"""
         sub = self.reddit.subreddit(topic)
@@ -48,10 +56,16 @@ class Redditor:
     @staticmethod
     def embed_post(post):
         """Returns an embedded post"""
+        # if it has an image without filetype add .jpg
         embed = Embed(title=post.title, color=0xf5ffcd, url=post.url)
         embed.set_image(url=post.url)
         embed.set_footer(text=f"\U0001F44D {post.score} \U0001F4AC {post.num_comments}")
         return embed
+
+    def video_post(self, post):
+        if post.is_video:
+            return post
+
 
 
 def setup(bot):
