@@ -23,6 +23,21 @@ class Misc:
             player = voice.create_ffmpeg_player('resources/sounds/farts/fart' + str(fart) + '.mp3')
             player.start()
 
+    @commands.command(name='mint',
+                      description="idk",
+                      brief="idk",
+                      pass_context=True)
+    async def mint(self, context):
+            post = get_mintai()
+            embed = Embed(title=post.title, color=0x111, url=post.url, )
+
+            # embed.set_image(post.url)
+            embed.add_field(name=post.permalink, value=post.url)
+
+            await self.bot.send_message(context.message.channel, embed=embed)
+            await self.bot.send_message(context.message.channel, "Mint senpai is very far away and addicted to destiny"
+                                                                 " at this time, please try again later")
+
     @commands.command(name='james',
                       description="my👏creator👏is👏the👏best😘🤗👏",
                       brief="Who is he?",
