@@ -1,78 +1,53 @@
+import sys
+import traceback
+
 import discord
+from discord.ext import commands
+from discord.ext.commands import CommandNotFound
+
 from config import Config
-from cup import FreezeMilk
 
-client = discord.Client()
+BOT_PREFIX = "milk "
+
+initial_extensions = ['cogs.voice',
+                      'cogs.misc',
+                      'cogs.drinks',
+                      'cogs.images',
+                      'cogs.test']
+
+bot = commands.Bot(command_prefix=BOT_PREFIX, description='Milk is flowing')
+
+# Here we load our extensions(cogs) listed above in [initial_extensions].
+if __name__ == '__main__':
+    for extension in initial_extensions:
+        try:
+            bot.load_extension(extension)
+        except Exception as e:
+            print(f'Failed to load extension {extension}.', file=sys.stderr)
+            traceback.print_exc()
 
 
-@client.event
+@bot.event
 async def on_ready():
-    print("Milk is flowing")
-    await client.change_presence(game=discord.Game(name="milk help"))
+    print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
+
+    await bot.change_presence(game=discord.Game(name="milk help (on scones' pc)"))
+    print('Milk is flowing')
 
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
+@bot.event
+async def on_command_error(error, context):
+    print(error)
+    # print(context)
+    # bot.send_message(context.channel, ":milk: Unrecognised command :milk:")
+    if isinstance(error, CommandNotFound):
+        print("Not found")
+        await bot.send_message(context.message.channel, ":milk: Unrecognised command :milk:")
         return
-    if message.content:
-        freeze_milk = FreezeMilk(message.server)
-        freeze_milk.get_milk_stats()
-
-        await process_message(message, freeze_milk)
-
-        freeze_milk.save_milk_stats()
+    else:
+        await bot.send_message(context.message.channel, "something went wrong")
+        await bot.send_message(context.message.channel, error)
+        raise error
 
 
-async def process_message(message, freeze_milk):
-    args = message.content.split(" ")
-    if args[0] == "milk" and len(args) > 1:
-        current_cup = freeze_milk.stats[message.author]
-
-        if args[1] == "help":
-            await client.send_message(message.channel, "```"
-                                                       "Your daily intake of calcium"
-                                                       "cup - show your cups current state\n"
-                                                       "pour - pour a level of milk in your cup\n"
-                                                       "drink - drink that milky goodness\n"
-                                                       "```")
-
-        elif args[1] == "trent":
-            await client.send_message(message.channel, ":boom: KABOOM!")
-
-        elif args[1] == "cup":
-            if len(args) > 2 and message.mentions:
-                current_cup = freeze_milk.stats[message.mentions[0]]
-
-            await client.send_message(message.channel, current_cup.draw())
-
-        elif args[1] == "pour":
-            if len(args) > 2 and message.mentions:
-                current_cup = freeze_milk.stats[message.mentions[0]]
-            filled_level = current_cup.pour()
-            if not filled_level:
-                pre_text = "Wtf dude you spilt the milk? You're getting a downgrade lol"
-            else:
-                pre_text = "milk level: " + str(filled_level) + " "
-
-            await client.send_message(message.channel, pre_text + current_cup.draw())
-
-        elif args[1] == "drink":
-            if len(args) > 2 and message.mentions:
-                current_cup = freeze_milk.stats[message.mentions[0]]
-            full_cup = current_cup.drink()
-            pre_text = ""
-            if full_cup:
-                pre_text = "You drunk a full glass of milk. Upgrade time! "
-
-            await client.send_message(message.channel, pre_text + current_cup.draw())
-
-        elif args[1] == "test":
-            person = message.mentions[0].name
-            await client.send_message(message.channel, person)
-
-        else:
-            await client.send_message(message.channel, ":milk: Unrecognised command :milk:")
-
-
-client.run(Config().token)
+bot.run(Config().token, bot=True)

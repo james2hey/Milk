@@ -8,6 +8,9 @@ class Cup:
         self.filled_level = MIN
         self.size = 4
 
+    def __str__(self):
+        return "Cup, fill: " + str(self.filled_level) + ", size: " + str(self.size)
+
     def pour(self):
         self.filled_level += 1
         if self.filled_level > self.size:
