@@ -1,6 +1,5 @@
 from discord.ext import commands
-
-from milkman import create_milkman
+import milkman
 
 
 class Test:
@@ -13,7 +12,7 @@ class Test:
                       pass_context=True)
     async def test(self, context):
         # await self.bot.send_message(context.message.channel, "Testing reload")
-        await self.bot.send_file(context.message.channel, create_milkman(context.message.author.avatar_url))
+        await self.bot.send_file(context.message.channel, milkman.create_spillman(context.message.author.avatar_url))
 
     @commands.command(name='leave',
                       description='Makes the bot leave your voice channel',

@@ -1,6 +1,7 @@
 from discord import Embed
 from discord.ext import commands
 from random import randint
+import urbandictionary as ud
 
 from mintai import get_mintai
 
@@ -37,6 +38,8 @@ class Misc:
             embed.add_field(name=post.permalink, value=post.url)
 
             await self.bot.send_message(context.message.channel, embed=embed)
+            await self.bot.send_message(context.message.channel, "Mint senpai is very far away and addicted to destiny"
+                                                                 " at this time, please try again later")
 
     @commands.command(name='james',
                       description="my👏creator👏is👏the👏best😘🤗👏",
@@ -44,6 +47,18 @@ class Misc:
                       pass_context=True)
     async def james(self, context):
         await self.bot.send_message(context.message.channel, "2HEY")
+
+    @commands.command(name='ud',
+                      description="Urban dictionary test",
+                      brief="Will it work",
+                      pass_context=True)
+    async def urbanBoi(self, context, rest: str = None):
+        if rest:
+            word = ud.define(rest)[0]
+            await self.bot.send_message(context.message.channel, word.word + " " + word.definition)
+        else:
+            rando = ud.random()[0]
+            await self.bot.send_message(context.message.channel, rando.word + " " + rando.definition)
 
 
 def setup(bot):
