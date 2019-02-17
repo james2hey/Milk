@@ -13,7 +13,9 @@ initial_extensions = ['cogs.voice',
                       'cogs.misc',
                       'cogs.drinks',
                       'cogs.images',
-                      'cogs.test']
+                      'cogs.test',
+                      'cogs.redditor',
+                      'cogs.key_peele']
 
 bot = commands.Bot(command_prefix=BOT_PREFIX, description='Milk is flowing')
 

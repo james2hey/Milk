@@ -66,6 +66,5 @@ class Test:
             await self.bot.send_message(context.message.channel, '**`SUCCESS`**')
 
 
-
 def setup(bot):
     bot.add_cog(Test(bot))

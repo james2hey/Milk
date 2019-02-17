@@ -2,6 +2,7 @@ from discord.ext import commands
 from cogs.images import send_image
 from random import randint
 
+
 class Voice:
     def __init__(self, bot):
         self.bot = bot
