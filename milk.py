@@ -33,7 +33,7 @@ if __name__ == '__main__':
 async def on_ready():
     print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
 
-    await bot.change_presence(game=discord.Game(name="milk help " + Config().running_on))
+    await bot.change_presence(game=discord.Game(name="milk help (on scones' pc)"))
     print('Milk is flowing')
 
 

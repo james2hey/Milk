@@ -61,11 +61,11 @@ class KeyPeele:
     async def the_room(self, context):
         await self.send_voice(context, "resources/sounds/breakfast/theroom.mp3")
 
-    @commands.command(name='fapoon',
+    @commands.command(name='spork',
                       description="Not a spoon, not a fork",
                       brief="Not a spoon, not a fork",
                       pass_context=True)
-    async def whoru(self, context):
+    async def who_r_u(self, context):
         await self.send_voice(context, "resources/sounds/breakfast/whoru.mp3")
 
     async def send_voice(self, context, mp3):
