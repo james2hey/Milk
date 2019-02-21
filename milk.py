@@ -1,9 +1,11 @@
+from datetime import datetime
 import sys
 import traceback
 
 import discord
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from config import Config
 
@@ -28,6 +30,26 @@ if __name__ == '__main__':
             print(f'Failed to load extension {extension}.', file=sys.stderr)
             traceback.print_exc()
 
+async def do_the_bins():
+    ch = bot.get_channel("548040895996362752")
+
+    for server in bot.private_channels:
+        print(server)
+        for member in server.recipients:
+            print(member)
+
+    out = " @everyone"
+    # for server in bot.servers:
+    #     for member in server.members:
+    #         out += " " + member.mention
+
+    if datetime.now().isocalendar()[1] % 2 == 0:
+        out = "Don't forget to put the red bin out! " + out
+        await bot.send_message(ch, out)
+    else:
+        out = "Don't forget to put the yellow bin out! " + out
+        await bot.send_message(ch, out)
+
 
 @bot.event
 async def on_ready():
@@ -35,6 +57,11 @@ async def on_ready():
 
     await bot.change_presence(game=discord.Game(name="milk help (on Raspberry Pi)"))
     print('Milk is flowing')
+
+    scheduler = AsyncIOScheduler()
+    scheduler.add_job(do_the_bins, 'cron', day_of_week='wed', hour=20)
+    # scheduler.add_job(do_the_bins, 'interval', seconds=3)
+    scheduler.start()
 
 
 @bot.event
