@@ -14,7 +14,9 @@ def create_milkman(avatar_url):
 
 def create_spillman(avatar_url):
     bottom = Image.open('resources/img/spill0.jpg').convert('RGBA')
-    top = Image.open(BytesIO(requests.get(avatar_url, stream=True).content)).resize((48, 48)).rotate(90).convert('RGBA')
+    profile_image = BytesIO(requests.get(avatar_url, stream=True).content)
+    profile_image.seek(0)
+    top = Image.open(profile_image).resize((48, 48)).rotate(90).convert('RGBA')
     bottom.paste(top, (260, 205), top)
 
     bottom.convert('RGB').save('temp/spillman.jpg')
