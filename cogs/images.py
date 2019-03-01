@@ -1,4 +1,5 @@
 from discord.ext import commands
+from random import randint
 
 
 class Images:
@@ -8,9 +9,10 @@ class Images:
     @commands.command(name='udder',
                       description="where does milk come from?",
                       brief="where does milk come from?",
+                      aliases=['boobs', 'tits', 'boobies', 'origin'],
                       pass_context=True)
     async def udder(self, context):
-        await self.bot.send_file(context.message.channel, "resources/img/udder.jpg")
+        await self.bot.send_file(context.message.channel, "resources/img/udders/" + str(randint(1, 4)) + ".jpg")
 
 
 async def send_image(self, context, resource):
