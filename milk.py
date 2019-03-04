@@ -55,7 +55,7 @@ async def do_the_bins():
 async def on_ready():
     print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
 
-    await bot.change_presence(game=discord.Game(name="milk help (on scones' pc)"))
+    await bot.change_presence(game=discord.Game(name="milk help (on james' pc)"))
     print('Milk is flowing')
 
     scheduler = AsyncIOScheduler()
