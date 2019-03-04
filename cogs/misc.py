@@ -19,7 +19,7 @@ class Misc:
                 voice = await self.bot.join_voice_channel(context.message.author.voice_channel)
             else:
                 voice = self.bot.voice_client_in(context.message.author.server)
-            fart = randint(1, 7)
+            fart = randint(1, 21)
             player = voice.create_ffmpeg_player('resources/sounds/farts/fart' + str(fart) + '.mp3')
             player.start()
 

@@ -17,7 +17,7 @@ initial_extensions = ['cogs.voice',
                       'cogs.images',
                       'cogs.test',
                       'cogs.redditor',
-                      'cogs.key_peele']
+                      'cogs.flat_memes']
 
 bot = commands.Bot(command_prefix=BOT_PREFIX, description='Milk is flowing')
 
@@ -70,8 +70,8 @@ async def on_command_error(error, context):
     # print(context)
     # bot.send_message(context.channel, ":milk: Unrecognised command :milk:")
     if isinstance(error, CommandNotFound):
-        print("Not found")
-        await bot.send_message(context.message.channel, ":milk: Unrecognised command :milk:")
+        # print("Not found")
+        # await bot.send_message(context.message.channel, ":milk: Unrecognised command :milk:")
         return
     else:
         await bot.send_message(context.message.channel, "something went wrong")
