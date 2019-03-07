@@ -20,7 +20,7 @@ class Test:
                       brief='Probably does something broken',
                       pass_context=True)
     async def test(self, context):
-        await self.bot.send_message(context.message.channel, context.message.author.id)
+        await self.bot.send_message(context.message.channel, context.message.author.id.asd)
 
 
     @commands.command(name='leave',

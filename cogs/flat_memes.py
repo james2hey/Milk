@@ -79,22 +79,29 @@ class FlatMemes:
                       description="How? Did I miss?",
                       brief="How? Did I miss?",
                       pass_context=True)
-    async def wrong_choice(self, context):
+    async def how_did_i_miss(self, context):
         await self.send_voice(context, "resources/sounds/flat_meme/how_did_i_miss.mp3")
 
     @commands.command(name='what',
                       description="WHAT",
                       brief="WHAT",
                       pass_context=True)
-    async def wrong_choice(self, context):
+    async def flat_meme(self, context):
         await self.send_voice(context, "resources/sounds/flat_meme/what.mp3")
 
     @commands.command(name='gulp',
                       description="Take a sippy sip",
                       brief="Take a sippy sip",
                       pass_context=True)
-    async def wrong_choice(self, context):
+    async def gulpy_drink(self, context):
         await self.send_voice(context, "resources/sounds/drink.mp3")
+
+    @commands.command(name='thursty',
+                      description="star wars",
+                      brief="star wars",
+                      pass_context=True)
+    async def thursty(self, context):
+        await self.send_voice(context, "resources/sounds/flat_meme/jthursty_starwars.mp3")
 
     async def send_voice(self, context, mp3):
         if context.message.author.voice_channel:

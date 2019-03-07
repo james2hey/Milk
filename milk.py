@@ -6,6 +6,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from log import log
 
 from config import Config
 
@@ -29,6 +30,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(f'Failed to load extension {extension}.', file=sys.stderr)
             traceback.print_exc()
+
 
 async def do_the_bins():
     ch = bot.get_channel("548040895996362752")
@@ -65,17 +67,15 @@ async def on_ready():
 
 
 @bot.event
+async def on_command_completion(command, context):
+    log(command, context)
+
+
+@bot.event
 async def on_command_error(error, context):
-    print(error)
-    # print(context)
-    # bot.send_message(context.channel, ":milk: Unrecognised command :milk:")
-    if isinstance(error, CommandNotFound):
-        # print("Not found")
-        # await bot.send_message(context.message.channel, ":milk: Unrecognised command :milk:")
-        return
-    else:
-        await bot.send_message(context.message.channel, "something went wrong")
-        await bot.send_message(context.message.channel, error)
+    log(error, context)
+    if not isinstance(error, CommandNotFound):
+        await bot.send_message(context.message.channel, "ah shit the devs fucked up")
         raise error
 
 
