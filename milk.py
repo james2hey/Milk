@@ -4,7 +4,7 @@ import traceback
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
+from discord.ext.commands import CommandNotFound, CommandOnCooldown
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from log import log
 
@@ -74,7 +74,13 @@ async def on_command_completion(command, context):
 @bot.event
 async def on_command_error(error, context):
     log(error, context)
-    if not isinstance(error, CommandNotFound):
+    if isinstance(error, CommandOnCooldown):
+        out_string = "You milked too hard. `{}` is on cool down. {}".format(
+            context.invoked_with,
+            str(error).split(".", 1)[1].strip()
+        )
+        await bot.send_message(context.message.channel, out_string)
+    else:
         await bot.send_message(context.message.channel, "ah shit the devs fucked up")
         raise error
 

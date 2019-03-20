@@ -35,6 +35,7 @@ class Drinks:
                       description="Pour some milk into a cup",
                       brief="Pour some milk",
                       pass_context=True)
+    @commands.cooldown(1, 10.0, commands.BucketType.user)
     async def pour_cup(self, context, mention: str = None):
         freeze_milk = self.get_state(context)
 
