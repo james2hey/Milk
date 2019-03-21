@@ -46,6 +46,14 @@ class Redditor:
         post = self.get_hot_post("FortNiteBR")
         await self.bot.send_message(context.message.channel, post.url)
 
+    @commands.command(name='code',
+                      description="Programmer Humor",
+                      brief="Programmer Humor",
+                      pass_context=True)
+    async def get_code_funny(self, context):
+        post = self.get_hot_post("ProgrammerHumor")
+        await self.bot.send_message(context.message.channel, post.url)
+
     def get_hot_post(self, topic):
         """Returns a random hot post from a given subreddit topic"""
         sub = self.reddit.subreddit(topic)

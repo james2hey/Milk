@@ -103,6 +103,14 @@ class FlatMemes:
     async def thursty(self, context):
         await self.send_voice(context, "resources/sounds/flat_meme/jthursty_starwars.mp3")
 
+    @commands.command(name='mooies',
+                      description="time for some goodies",
+                      brief="time for some goodies",
+                      pass_context=True)
+    async def mooies(self, context):
+        await self.bot.send_message(context.message.channel, "m8 don't get too excited")
+        await self.bot.send_file(context.message.channel, "resources/img/" + str("mooies.jpg"))
+
     async def send_voice(self, context, mp3):
         if context.message.author.voice_channel:
             if not self.bot.voice_client_in(context.message.author.server):
