@@ -1,3 +1,5 @@
+from random import randint
+
 from discord.ext import commands
 
 
@@ -110,6 +112,22 @@ class FlatMemes:
     async def mooies(self, context):
         await self.bot.send_message(context.message.channel, "m8 don't get too excited")
         await self.bot.send_file(context.message.channel, "resources/img/" + str("mooies.jpg"))
+
+    @commands.command(name='chips',
+                      description="what size chips you have to buy",
+                      brief="what size chips you have to buy",
+                      pass_context=True)
+    async def mooies(self, context):
+        number = randint(0, 100)
+        size = "MEDIUM"
+        if 0 < number < 20:
+            size = "SMALL YOU DAFT 1"
+        elif 70 < number < 90:
+            size = "LARGE"
+        elif number >= 90:
+            size = "EXTRA FORKEN LARGE M8"
+        chip_string = "You have to purchase chips of the size " + size
+        await self.bot.send_message(context.message.channel, chip_string)
 
     async def send_voice(self, context, mp3):
         if context.message.author.voice_channel:
