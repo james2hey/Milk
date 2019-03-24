@@ -58,8 +58,8 @@ class Redditor:
                       description="Tiddies",
                       brief="Hot Chicks, maybe nsfw",
                       pass_context=True)
-    async def get_goddess(self, context):
-        post = self.get_hot_post(random.choice(["boobs", "fortyfivefiftyfive", "sideboob", "underboob"]))
+    async def get_hot_chicks(self, context):
+        post = self.get_hot_post(random.choice(["boobs", "fortyfivefiftyfive", "sideboob", "underboob", "goddesses"]))
         embed = self.embed_post(post)
         await self.bot.send_message(context.message.channel, embed=embed)
 

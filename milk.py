@@ -80,6 +80,8 @@ async def on_command_error(error, context):
             str(error).split(".", 1)[1].strip()
         )
         await bot.send_message(context.message.channel, out_string)
+    elif isinstance(error, CommandNotFound):
+        await bot.send_message(context.message.channel, "What you talkin bout willis?")
     else:
         await bot.send_message(context.message.channel, "ah shit the devs fucked up")
         raise error
