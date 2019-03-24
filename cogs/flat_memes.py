@@ -117,7 +117,7 @@ class FlatMemes:
                       description="what size chips you have to buy",
                       brief="what size chips you have to buy",
                       pass_context=True)
-    async def mooies(self, context):
+    async def chips(self, context):
         number = randint(0, 100)
         size = "MEDIUM"
         if 0 < number < 20:
