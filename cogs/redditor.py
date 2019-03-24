@@ -54,6 +54,15 @@ class Redditor:
         post = self.get_hot_post("ProgrammerHumor")
         await self.bot.send_message(context.message.channel, post.url)
 
+    @commands.command(name='moooies',
+                      description="Tiddies",
+                      brief="Hot Chicks, maybe nsfw",
+                      pass_context=True)
+    async def get_goddess(self, context):
+        post = self.get_hot_post(random.choice(["boobs", "fortyfivefiftyfive", "sideboob", "underboob"]))
+        embed = self.embed_post(post)
+        await self.bot.send_message(context.message.channel, embed=embed)
+
     def get_hot_post(self, topic):
         """Returns a random hot post from a given subreddit topic"""
         sub = self.reddit.subreddit(topic)
