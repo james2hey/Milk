@@ -120,11 +120,11 @@ class FlatMemes:
     async def chips(self, context):
         number = randint(0, 100)
         size = "MEDIUM"
-        if 0 < number < 20:
-            size = "SMALL YOU DAFT 1"
-        elif 70 < number < 90:
+        if 0 < number < 5:
+            size = "SMALL YOU STUPID DUMB PITCH"
+        elif 85 < number < 95:
             size = "LARGE"
-        elif number >= 90:
+        elif number >= 95:
             size = "EXTRA FORKEN LARGE M8"
         chip_string = "You have to purchase chips of the size " + size
         await self.bot.send_message(context.message.channel, chip_string)
