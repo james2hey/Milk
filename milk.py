@@ -10,7 +10,7 @@ from log import log
 
 from config import Config
 
-BOT_PREFIX = "milk "
+BOT_PREFIX = ["milk ", "Milk "]
 
 initial_extensions = ['cogs.voice',
                       'cogs.misc',
