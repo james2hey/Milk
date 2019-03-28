@@ -30,6 +30,14 @@ class Misc:
     async def james(self, context):
         await self.bot.send_message(context.message.channel, "2HEY")
 
+    @commands.command(name='dan',
+                      description="DPD",
+                      brief="Acronym",
+                      pass_context=True)
+    async def dan(self, context):
+        await self.bot.send_message(context.message.channel, "PUMP")
+        await self.bot.send_message(context.message.channel, "PUMP")
+
     @commands.command(name='ud',
                       description="Urban dictionary test",
                       brief="Will it work",
