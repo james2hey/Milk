@@ -105,6 +105,13 @@ class FlatMemes:
     async def thursty(self, context):
         await self.send_voice(context, "resources/sounds/flat_meme/jthursty_starwars.mp3")
 
+    @commands.command(name='trenty',
+                      description="a wee suprise",
+                      brief="a wee suprise",
+                      pass_context=True)
+    async def trenty(self, context):
+        await self.send_voice(context, "resources/sounds/flat_meme/trenty.mp3")
+
     @commands.command(name='mooies',
                       description="time for some goodies",
                       brief="time for some goodies",
