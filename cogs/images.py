@@ -19,7 +19,7 @@ class Images:
                       brief="where does milk come from?",
                       aliases=['kombucha'],
                       pass_context=True)
-    async def udder(self, context):
+    async def scoby(self, context):
         await self.bot.send_file(context.message.channel, "resources/img/scoby.JPG")
 
 
