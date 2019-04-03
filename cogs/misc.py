@@ -37,6 +37,13 @@ class Misc:
     async def dan(self, context):
         await self.bot.send_message(context.message.channel, "PUMP")
         await self.bot.send_message(context.message.channel, "PUMP")
+        if context.message.author.voice_channel:
+            if not self.bot.voice_client_in(context.message.author.server):
+                voice = await self.bot.join_voice_channel(context.message.author.voice_channel)
+            else:
+                voice = self.bot.voice_client_in(context.message.author.server)
+            player = voice.create_ffmpeg_player('resources/sounds/dan.mp3')
+            player.start()
 
     @commands.command(name='ud',
                       description="Urban dictionary test",
