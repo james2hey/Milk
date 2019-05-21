@@ -23,6 +23,20 @@ class Misc:
             player = voice.create_ffmpeg_player('resources/sounds/farts/fart' + str(fart) + '.mp3')
             player.start()
 
+    @commands.command(name='forkknife',
+                      description="prank the boys when you die early",
+                      brief="Get them when you're spectating",
+                      pass_context=True)
+    async def forkknife(self, context):
+        if context.message.author.voice_channel:
+            if not self.bot.voice_client_in(context.message.author.server):
+                voice = await self.bot.join_voice_channel(context.message.author.voice_channel)
+            else:
+                voice = self.bot.voice_client_in(context.message.author.server)
+            fart = randint(0, 2)
+            player = voice.create_ffmpeg_player('resources/sounds/fortnite/' + str(fart) + '.mp3')
+            player.start()
+
     @commands.command(name='james',
                       description="my👏creator👏is👏the👏best😘🤗👏",
                       brief="Who is he?",
