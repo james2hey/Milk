@@ -42,7 +42,8 @@ class Misc:
                       brief="Who is he?",
                       pass_context=True)
     async def james(self, context):
-        await self.bot.send_message(context.message.channel, "2HEY")
+        await self.bot.send_message(context.message.channel, "2HEY is a dumb chicken")
+        await self.bot.send_file(context.message.channel, "resources/img/dumbChicken.gif")
 
     @commands.command(name='dan',
                       description="DPD",
