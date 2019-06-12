@@ -120,6 +120,19 @@ class FlatMemes:
         await self.bot.send_message(context.message.channel, "m8 don't get too excited")
         await self.bot.send_file(context.message.channel, "resources/img/" + str("mooies.jpg"))
 
+    @commands.command(name='game',
+                      description="what game should we play",
+                      brief="what game should we play",
+                      pass_context=True)
+    async def game(self, context):
+        number = randint(0, 100)
+        if number < 50:
+            game = "SMACH"
+        else:
+            game = "Tracccc Main E Ya"
+
+        await self.bot.send_message(context.message.channel, "Time to play some " + game)
+
     @commands.command(name='chips',
                       description="what size chips you have to buy",
                       brief="what size chips you have to buy",
