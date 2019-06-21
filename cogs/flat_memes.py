@@ -120,6 +120,13 @@ class FlatMemes:
         await self.bot.send_message(context.message.channel, "m8 don't get too excited")
         await self.bot.send_file(context.message.channel, "resources/img/" + str("mooies.jpg"))
 
+    @commands.command(name='shanty',
+                      description="A lil tune for ya",
+                      brief="A lil tune for ya",
+                      pass_context=True)
+    async def shanty(self, context):
+        await self.send_voice(context, "resources/sounds/flat_meme/sea_shanty.mp3")
+
     @commands.command(name='game',
                       description="what game should we play",
                       brief="what game should we play",
