@@ -14,3 +14,10 @@ def log(result, context):
     with open("LOGS.txt", "a") as log_file:
         log_file.write(log_message.format(datetime.now(), result, context.message.author))
     log_file.close()
+
+def logGeneric(message):
+    log_message = 'LOG {}, {}'
+
+    with open("LOGS.txt", "a") as log_file:
+        log_file.write(log_message.format(datetime.now(), message))
+    log_file.close()

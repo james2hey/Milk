@@ -18,7 +18,8 @@ initial_extensions = ['cogs.voice',
                       'cogs.images',
                       'cogs.test',
                       'cogs.redditor',
-                      'cogs.flat_memes']
+                      'cogs.flat_memes',
+                      'cogs.printer']
 
 bot = commands.Bot(command_prefix=BOT_PREFIX, description='Milk is flowing')
 
