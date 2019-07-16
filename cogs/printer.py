@@ -23,7 +23,7 @@ class Printer:
         job_info = self.op_client.job_info()
         if job_info["state"] == "Printing":
 
-            floor_percent = math.floor(job_info["progress"]["completion"] / 10) * 10
+            floor_percent = int((job_info["progress"]["completion"] // 5) * 5)
             time_elapsed_nice = str(datetime.timedelta(seconds=job_info["progress"]["printTime"]))
             if job_info["progress"]["printTimeLeft"] is None:
                 time_left_nice = "Calculating..."
