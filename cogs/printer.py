@@ -3,6 +3,7 @@ from discord import Embed
 from octorest import OctoRest
 from config import Config
 from log import logGeneric
+import requests
 import datetime
 
 
@@ -48,8 +49,18 @@ class Printer:
                 embed.add_field(name="Estimated Time Left", value=time_left_nice, inline=True)
                 embed.add_field(name="Estimated Completion Time", value=time_completion, inline=True)
                 await self.bot.send_message(context.message.channel, embed=embed)
+                self.getImage()
+                await self.bot.send_file(context.message.channel, 'temp/snapshot.jpg')
             else:
-                await self.bot.send_message(context.message.channel, "Printer is {}".format(job_info["state"]))
+                embed = Embed(
+                    title="Athol's 3D Printer",
+                    description="Printer is currently: {}".format(job_info["state"]),
+                    color=0x0080ff)
+                embed.add_field(
+                    name="State",
+                    value="{}".format(job_info["state"])
+                )
+                await self.bot.send_message(context.message.channel, embed=embed)
         else:
             if rest.lower() == "pause":
                 if context.message.author.id == '311429319505346560':
@@ -72,6 +83,12 @@ class Printer:
         fulldate = datetime.datetime(100, 1, 1, tm.hour, tm.minute, tm.second)
         fulldate = fulldate + datetime.timedelta(seconds=secs)
         return fulldate.time()
+
+    @staticmethod
+    def getImage():
+        img_data = requests.get("http://192.168.1.158/webcam/?action=snapshot").content
+        with open('temp/snapshot.jpg', 'wb') as handler:
+            handler.write(img_data)
 
 def setup(bot):
     bot.add_cog(Printer(bot))
