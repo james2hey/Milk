@@ -49,8 +49,6 @@ class Printer:
                 embed.add_field(name="Estimated Time Left", value=time_left_nice, inline=True)
                 embed.add_field(name="Estimated Completion Time", value=time_completion, inline=True)
                 await self.bot.send_message(context.message.channel, embed=embed)
-                self.getImage()
-                await self.bot.send_file(context.message.channel, 'temp/snapshot.jpg')
             else:
                 embed = Embed(
                     title="Athol's 3D Printer",
@@ -74,6 +72,13 @@ class Printer:
                         await self.bot.send_message(context.message.channel, "Error: {}".format(err_message))
                     else:
                         await self.bot.send_message(context.message.channel, "Printer paused")
+                else:
+                    scones = await self.bot.get_user_info('311429319505346560')
+                    await self.bot.send_message(context.message.channel, "Only {} can do that, sorry".format(scones.mention))
+            elif rest.lower() == "pic":
+                if context.message.author.id == '311429319505346560':
+                    self.getImage()
+                    await self.bot.send_file(context.message.channel, 'temp/snapshot.jpg')
                 else:
                     scones = await self.bot.get_user_info('311429319505346560')
                     await self.bot.send_message(context.message.channel, "Only {} can do that, sorry".format(scones.mention))
